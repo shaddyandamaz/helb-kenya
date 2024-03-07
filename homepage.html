@@ -1,0 +1,959 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Online Jobs Registration</title>
+    <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href='' rel='stylesheet'>
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+    <link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard_theme_dots.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.smartWizard.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+      @import  url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap');
+      body {
+        background-color: #FFF;
+        font-family: 'Open Sans', sans-serif;
+      }
+
+      .form-control:focus {
+        color: #eaedf0;
+        background-color: #fff;
+        border-color: #10fa1c;
+        outline: 0;
+        box-shadow: 0 0 0 0rem rgba(0, 123, 255, .25)
+      }
+
+      .btn-secondary:focus {
+        box-shadow: 0 0 0 0rem rgba(3, 3, 3, 0.5)
+      }
+
+      .close:focus {
+        box-shadow: 0 0 0 0rem rgba(11, 111, 199, 0.5)
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus,
+      button:focus {
+        border: 1px solid #ced4da !important;
+      }
+
+      .mt-200 {
+        margin-top: 200px
+      }
+      .btn-toolbar{
+        padding: 8px;
+      }
+      .sw-btn-next{
+        background-color: #17A673 !important;
+      }
+      .loginbtn{
+          background-color:#17A673;
+          border-radius:25px;
+          padding-left:20px !important;
+          padding-right:20px !important;
+          color: #fff !important;
+      }
+      .reg_title{
+        margin-bottom:30px !important;
+        color: #07f155 !important;
+      }
+      .sw-theme-dots>ul.step-anchor>li.active>a {
+          color: #000000;
+      }
+      .sw-theme-dots>ul.step-anchor>li.done>a {
+          color: #ec1414;
+      }
+      .select2.select2-container .select2-selection {
+      border: 1px solid #ccc;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      height: 34px;
+      margin-bottom: 15px;
+      outline: none !important;
+      transition: all .15s ease-in-out;
+    }
+
+    .select2.select2-container .select2-selection .select2-selection__rendered {
+      color: #333;
+      line-height: 32px;
+      padding-right: 33px;
+    }
+
+    .select2.select2-container .select2-selection .select2-selection__arrow {
+      background: #f8f8f8;
+      border-left: 1px solid #ccc;
+      -webkit-border-radius: 0 3px 3px 0;
+      -moz-border-radius: 0 3px 3px 0;
+      border-radius: 0 3px 3px 0;
+      height: 32px;
+      width: 33px;
+    }
+
+    .select2.select2-container.select2-container--open .select2-selection.select2-selection--single {
+      background: #f8f8f8;
+    }
+
+    .select2.select2-container.select2-container--open .select2-selection.select2-selection--single .select2-selection__arrow {
+      -webkit-border-radius: 0 3px 0 0;
+      -moz-border-radius: 0 3px 0 0;
+      border-radius: 0 3px 0 0;
+    }
+
+    .select2.select2-container.select2-container--open .select2-selection.select2-selection--multiple {
+      border: 1px solid #34495e;
+    }
+
+    .select2.select2-container .select2-selection--multiple {
+      height: auto;
+      min-height: 34px;
+    }
+
+    .select2.select2-container .select2-selection--multiple .select2-search--inline .select2-search__field {
+      margin-top: 0;
+      height: 32px;
+    }
+
+.select2.select2-container .select2-selection--multiple .select2-selection__rendered {
+  display: block;
+  padding: 0 4px;
+  line-height: 29px;
+}
+
+.select2.select2-container .select2-selection--multiple .select2-selection__choice {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  margin: 4px 4px 0 0;
+  padding: 0 6px 0 22px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 12px;
+  position: relative;
+}
+
+.select2.select2-container .select2-selection--multiple .select2-selection__choice .select2-selection__choice__remove {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  margin: 0;
+  text-align: center;
+  color: #e74c3c;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.select2-container .select2-dropdown {
+  background: transparent;
+  border: none;
+  margin-top: -5px;
+}
+
+.select2-container .select2-dropdown .select2-search {
+  padding: 0;
+}
+
+.select2-container .select2-dropdown .select2-search input {
+  outline: none !important;
+  border: 1px solid #0f79e4 !important;
+  border-bottom: none !important;
+  padding: 4px 6px !important;
+}
+
+.select2-container .select2-dropdown .select2-results {
+  padding: 0;
+}
+
+.select2-container .select2-dropdown .select2-results ul {
+  background: #02eb21;
+  border: 1px solid rgb(243, 245, 247);
+}
+
+.select2-container .select2-dropdown .select2-results ul .select2-results__option--highlighted[aria-selected] {
+  background-color: #3498db;
+}
+    </style>
+  </head>
+  <header id="pageHeader" class="bg-white">
+				<div class="hdTopBar py-2 py-xl-3 bg-dark d-none d-md-block">
+					<div class="container">
+						<div class="row">
+							<div class="col-8">
+								<ul class="list-unstyled hdScheduleList mb-0 d-flex flex-wrap align-items-center">
+									<li>
+										<a href="tel:0111937319">
+											<i class="icomoon-telRcv align-middle icn"><span class="sr-only">icon</span></i>
+											Call on: 0111937319 or 0790000000
+										</a>
+									</li>
+									<li>
+										<time datetime="2023-03-02">
+											<i class="icomoon-clock align-middle icn"><span class="sr-only">icon</span></i>
+											Extendend Time for Job applicants and Review of Documents: Mon - Fri 7.00 am - 7.00 pm
+										</time>
+									</li>
+								</ul>
+							</div>
+  <body oncontextmenu='return false' class='snippet-body'>
+    
+        <nav  class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" href="https://register.ojs.go.ke">
+                    <img style="height:70px;" src="logo.jpg"/>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Left Side Of Navbar -->
+                    <ul class="navbar-nav mr-auto">
+
+                    </ul>
+
+                    
+                </div>
+            </div>
+        </nav>
+
+    
+    <div class="modal-fullscreen">
+      
+    </div>
+
+   
+
+
+    <div style="margin-top:50px;" class="container">
+
+
+      <h3 class="text-center reg_title"> <strong>kenya Online Job Registration</strong> </h3>
+
+      <div class="row justify-content-center mb-4">
+        <h5>Already Registered?</h5>
+        <a href="/registration/verify"><h5> &nbsp;Do verification process Right Away</h5></a>
+      </div>
+
+       <div class="card shadow-sm">
+
+
+       <form action="/save" id="registerationForm" role="form" data-toggle="validator" method="post">
+        <input type="hidden" name="_token" value="RmWZ6yFXWtpsBb7wgW7Sjq5zZFDwwPe9GG0wRsNd">
+       <div  style="padding:10px;" id="smartwizard">
+        <ul>
+          <li><a href="#step-1">Step 1<br /><small>Personal Details</small></a></li>
+          <li><a href="#step-2">Step 2<br /><small>National ID Details</small></a></li>
+          <li><a href="#step-3">Step 3<br /><small>Location Details</small></a></li>
+          <li><a href="#step-4">Step 4<br /><small>Education & Skill level</small></a></li>
+        </ul>
+        <div>
+
+                    <div style="padding: 15px;" id="step-1">
+            
+              <div class="row">
+
+              <div class="col-md-6">
+                <label class="form-label" for="">First Name</label>
+                <input type="text" onkeypress="return /[a-z]/i.test(event.key)" class="form-control" value="" id="first_name" name="first_name" placeholder="Enter Your First Name">
+                <p id="first_name_error" style="color:#e74a3b;display:none;">Please enter First Name</p>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-step-0" role="form" data-toggle="validator">
+                  <label class="form-label" for="">Middle Name</label>
+                  <input type="text" onkeypress="return /[a-z]/i.test(event.key)" class="form-control" name="middle_name"  id="middle_name" value="" placeholder="Enter Your Middle Name">
+                  <p id="middle_name_error" style="color:#e74a3b;display:none;">Please enter Middle Name</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row mt-3">
+
+              <div class="col-md-6">
+              <div class="form-step-0" role="form" data-toggle="validator">
+                <label class="form-label" for="">Last Name</label>
+                <input type="text" onkeypress="return /[a-z]/i.test(event.key)" class="form-control" name="last_name" id="last_name" value="" placeholder="Enter Your Last Name">
+                <p id="last_name_error" style="color:#e74a3b;display:none;">Please enter Last Name</p>
+              </div>
+              </div>
+              
+              <div class="col-md-6">
+              <div class="form-step-0" role="form" data-toggle="validator">
+                <label class="form-label" for="">Date Of Birth</label>
+                                <input type="date" class="form-control" name="dob" value=""  id="dob" max="2006-03-06" >
+                <p id="dob_error" style="color:#e74a3b;display:none;">Please select Date Of Birth</p>
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="row mt-3">
+
+              <div class="col-md-6">
+              <div class="form-step-0" role="form" data-toggle="validator">
+                <label class="form-label" for="">Gender</label>
+                <select name="gender" id="gender" class="form-control">
+                  <option value="">Select gender</option>
+                  <option   value="male">Male</option>
+                  <option  value="female">Female</option>
+                </select>
+                <p id="gender_error" style="color:#e74a3b;display:none;">Please select your gender</p>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+              <div class="form-step-0" role="form" data-toggle="validator">
+                <label class="form-label" for="">Do you have any disability</label>
+                <select name="disabled" id="disabled" class="form-control">
+                  <option   value="no">No</option>
+                  <option   value="yes">Yes</option>
+                </select>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row mt-3">
+
+            <div class="col-md-6">
+            <div class="form-step-0" role="form" data-toggle="validator">
+              <label class="form-label" for="">Phone Number</label>
+              <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==10) return false;" maxlength="10"  class="form-control" value="" name="phone" id="phone" placeholder="Enter Your Phone Number">
+              <p id="phone_error" style="color:#e74a3b;display:none;">Please enter a valid Phone Number</p>
+              <p id="phone_error_server" style="color:#e74a3b;display:none;"></p>
+              </div>
+            </div>
+
+            </div>
+
+
+          </div>
+
+
+          <div style="padding: 15px;" id="step-2">
+            
+            <div class="row mt-3">
+
+
+            <div class="col-md-6">
+            <label class="form-label" for="">Do you have and ID</label>
+            <br>
+            <input name="have_id" value="yes" id="yes" type="radio" onclick="yesid()" checked required class=""/><label class="form-label" for="">&nbsp; Yes</label>
+             &nbsp; 
+            <input name="have_id" value="no" id="no" type="radio" onclick="noid()" required class=""/><label class="form-label" for="">&nbsp; No</label>
+              
+            </div>
+            
+              <div class="col-md-6">
+                <label class="form-label" for="">Serial No</label>
+                <input type="number" class="form-control" value="" name="id_serial_no" id="id_serial_no" placeholder="Enter Id Serial No">
+                <p id="id_serial_no_error" style="color:#e74a3b;display:none;">Please enter Serial No</p>
+              </div>
+
+            </div>
+
+          
+          <div class="row mt-3">
+
+              <div class="col-md-6">
+                <label class="form-label" for="">ID No</label>
+                <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==8) return false;" maxlength="8" class="form-control" value="" name="id_no" id="id_no" placeholder="Enter Id No">
+                <p id="id_no_error" style="color:#e74a3b;display:none;">Please enter your ID No</p>
+                <p id="id_no_error_server" style="color:#e74a3b;display:none;"></p>
+              </div>
+
+            <div class="col-md-6">
+              <label class="form-label" for="">District of Birth</label>
+              <input type="text" class="form-control" value="" name="district_of_birth" id="district_of_birth" placeholder="Enter District Of Birth">
+              <p id="district_of_birth_error" style="color:#e74a3b;display:none;">Please enter your District Of Birth</p>
+            </div>
+
+          </div>
+
+
+          </div>
+
+
+          <div style="padding: 15px;" id="step-3" class="">
+             <div class="row mt-3">
+
+              <div class="col-md-6">
+                <label class="form-label" for="">County</label>
+                <select onchange="get_subcounties()"  id="county" name="county" class="form-control select2">
+                    <option value="">Select County</option>
+                                        <option selected  value=""></option>
+                                        <option  value="   KISII">   KISII</option>
+                                        <option  value=" BUNGOMA"> BUNGOMA</option>
+                                        <option  value="Baringo">Baringo</option>
+                                        <option  value="Bomet">Bomet</option>
+                                        <option  value="BUNGOMA">BUNGOMA</option>
+                                        <option  value="BUSIA">BUSIA</option>
+                                        <option  value="Elgeyo Marakwet">Elgeyo Marakwet</option>
+                                        <option  value="Embu">Embu</option>
+                                        <option  value="Garissa">Garissa</option>
+                                        <option  value="HOMA BAY">HOMA BAY</option>
+                                        <option  value="Isiolo">Isiolo</option>
+                                        <option  value="Kajiado">Kajiado</option>
+                                        <option  value="KAKAMEGA">KAKAMEGA</option>
+                                        <option  value="Kericho">Kericho</option>
+                                        <option  value="Kiambu">Kiambu</option>
+                                        <option  value="KILIFI">KILIFI</option>
+                                        <option  value="Kirinyaga">Kirinyaga</option>
+                                        <option  value="KISII">KISII</option>
+                                        <option  value="Kisumu">Kisumu</option>
+                                        <option  value="Kitui">Kitui</option>
+                                        <option  value="Kwale">Kwale</option>
+                                        <option  value="Laikipia">Laikipia</option>
+                                        <option  value="LAMU">LAMU</option>
+                                        <option  value="Machakos ">Machakos </option>
+                                        <option  value="Makueni">Makueni</option>
+                                        <option  value="MANDERA">MANDERA</option>
+                                        <option  value="Marsabit">Marsabit</option>
+                                        <option  value="Meru">Meru</option>
+                                        <option  value="Migori">Migori</option>
+                                        <option  value="Mombasa">Mombasa</option>
+                                        <option  value="MURANG&#039;A">MURANG&#039;A</option>
+                                        <option  value="Nairobi">Nairobi</option>
+                                        <option  value="Nakuru">Nakuru</option>
+                                        <option  value="Nandi">Nandi</option>
+                                        <option  value="Narok">Narok</option>
+                                        <option  value="NYAMIRA">NYAMIRA</option>
+                                        <option  value="NYANDARUA">NYANDARUA</option>
+                                        <option  value="NYERI">NYERI</option>
+                                        <option  value="Samburu">Samburu</option>
+                                        <option  value="SIAYA">SIAYA</option>
+                                        <option  value="Taita Taveta">Taita Taveta</option>
+                                        <option  value="TANA RIVER">TANA RIVER</option>
+                                        <option  value="Tharaka Nithi">Tharaka Nithi</option>
+                                        <option  value="Trans Nzoia">Trans Nzoia</option>
+                                        <option  value="Turkana">Turkana</option>
+                                        <option  value="Uasin Gishu">Uasin Gishu</option>
+                                        <option  value="VIHIGA">VIHIGA</option>
+                                        <option  value="WAJIR">WAJIR</option>
+                                        <option  value="West Pokot">West Pokot</option>
+                                    </select>
+                <p id="county_error" style="color:#e74a3b;display:none;">Please select your county</p>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label" for="">Sub County</label>
+                <select  onchange="get_wards()" id="sub_county" name="sub_county"  class="form-control select2">
+                                        <option value="">Select Sub County</option>
+                </select>
+                <p id="subcounty_error" style="color:#e74a3b;display:none;">Please select your sub county</p>
+              </div>
+
+            </div>
+
+            <div class="row mt-3">
+
+              <div class="col-md-6">
+                <label class="form-label" for="">Ward / Location</label>
+                <select  onchange="get_villages()" id="ward" name="ward" class="form-control select2">
+                                        <option value="">Select Ward</option>
+                </select>
+                <p id="ward_error" style="color:#e74a3b;display:none;">Please select your ward</p>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label" for="">Village / Informal Settlement</label>
+                <select id="village" name="village" class="form-control">
+                                        <option value="">Select Village</option>
+                </select>
+                <p id="village_error" style="color:#e74a3b;display:none;">Please select your village</p>
+              </div>
+
+            </div>
+
+            <div class="row mt-3">
+
+            <div class="col-md-6">
+              <label class="form-label" for="">Residence</label>
+              <input type="text" class="form-control" value="" name="residence" id="residence" placeholder="Enter Your Residence">
+              <p id="residence_error" style="color:#e74a3b;display:none;">Please enter your Residence</p>
+            </div>
+
+            </div>
+
+
+            </div>
+          
+
+          <div style="padding: 15px;" id="step-4" class="">
+           
+           
+            <div class="row mt-3">
+
+              <div class="col-md-6">
+                <label class="form-label" for="">Level of education</label>
+                <select name="education_level" id="education_level" class="form-control">
+                    <option  value="primary">Primary</option>
+                    <option  value="Secondary">Secondary</option>
+                    <option  value="Undergraduate">Undergraduate</option>
+                    <option  value="Vocational/Technical school">Vocational/Technical school</option>
+                    <option  value="Graduate">Graduate</option>
+                    <option  value="Masters">Masters</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label" for="">Skill level</label>
+                <select name="skill_level" id="skill_level" class="form-control">
+                    <option   value="Skilled - Industrial trade">Skilled - Industrial trade</option>
+                    <option   value="Skilled - Service trade">Skilled - Service trade</option>
+                    <option   value="Semi-skilled">Semi-skilled</option>
+                    <option   value="Un-skilled">Un-skilled</option>
+                </select>
+              </div>
+
+            </div>
+
+            <div class="row mt-3">
+  
+              <div class="col-md-6">
+                <label class="form-label" for="">Preffered Job</label>
+                 <select name="preffered_job" id="preffered_job" class="form-control">
+                    <option value="">Select One</option>
+                    <option  value="Construction works">Construction works</option>
+                    <option  value="Malaria youth army">Malaria youth army</option>
+                </select>
+                <p id="preffered_job_error" class="mt-3" style="color:#e74a3b;display:none;">Please Select Preffered Job</p>
+              </div>
+
+            </div>
+
+            <div id="captcha_view" class="g-recaptcha mt-4 mb-3" data-callback="recaptchaCallback" data-sitekey="6LeRXUUdAAAAABnqfDkjEa9cDrMI0-CLWbP9myLW"></div>
+
+            <input class="mt-3" type="checkbox" id="termscheckbox" name="">
+              <span>
+                I understand that registration on this portal is an expression of interest to participate in the third phase of the National Hygiene Program dubbed "Kazi Mtaani". After registration, a selection committee will be convened to select those who will participate in the program. Only successful applicants will be notified via phone (SMS) of selection into the program.
+            </span>
+
+            <p id="termscheckbox_error" class="mt-3" style="color:#e74a3b;display:none;">You have to agree to terms & conditions to submit this form.</p>
+
+            <div class="mt-3">
+
+              <button id="submitBtn" disabled onclick="submitForm()" type="button" class="btn btn-success">
+                Submit
+              </button>
+
+            </div>
+
+
+          </div>
+
+
+
+
+       </form>
+
+              
+          </div>
+
+
+       </div>
+
+      </div>
+
+      <hr>
+
+      <div style="color: #17AEAE;font-weight:bold;margin-bottom:50px;" class="text-center">
+        Developed By GoK
+      </div>
+
+            <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+          <script>
+      $('#smartwizard').on("leaveStep",function(e, anchorObject, stepNumber, stepDirection){
+            var elForm = $('#step-'+stepNumber+1);
+            if(stepDirection === "forward" && elForm){
+
+              var first_name = $('#first_name').val();
+              var middle_name = $('#middle_name').val();
+              var last_name = $('#last_name').val();
+              var dob = $('#dob').val();
+              var gender = $('#gender').val();
+              var disabled = $('#disabled').val();
+              var phone = $('#phone').val();
+              var id_serial_no = $('#id_serial_no').val();
+              var id_no = $('#id_no').val();
+              var district_of_birth = $('#district_of_birth').val();
+              var county = $('#county').val();
+              var sub_county = $('#sub_county').val();
+              var ward = $('#ward').val();
+              var village = $('#village').val();
+              var residence = $('#residence').val();
+              var education_level = $('#education_level').val();
+              var skill_level = $('#skill_level').val();
+              var preffered_job = $('#preffered_job').val();
+
+              console.log("county => "+county)
+                   
+
+                   // Validate step 1
+              
+                    if(stepNumber == 0){
+                  
+                      if(first_name == ""||middle_name == ""||last_name ==""||dob == ""||gender == ""||disabled == ""||phone == ""){
+
+                          setTimeout(function() {
+                            $('#smartwizard').data('smartWizard')._showStep(0); 
+                          }, 50);
+
+                          if(first_name == ""){
+                            $('#first_name_error').show();
+                          }
+
+                          if(middle_name == ""){
+                            $('#middle_name_error').show();
+                          }
+
+                          if(last_name == ""){
+                            $('#last_name_error').show();
+                          }
+
+                          if(dob == ""){
+                            $('#dob_error').show();
+                          }
+
+                          if(gender == ""){
+                            $('#gender_error').show();
+                          }
+
+                          if(disabled == ""){
+                            $('#disabled_error').show();
+                          }
+
+                          if(phone == ""){
+                            $('#phone_error').show();
+                          }
+
+
+                      } 
+
+
+                      if(phone !== ""){
+
+                      $.ajax({
+                            url: '/api/validate-number',
+                            type: 'POST',
+                            data: {phone:phone},
+                            success: function (data) {
+                              // console.log("Response => " + JSON.stringify(data));
+                              if(!data.success){
+                                setTimeout(function() {
+                                  $('#smartwizard').data('smartWizard')._showStep(0); 
+                                }, 50);
+                                $('#phone_error_server').show();
+                                document.getElementById("phone_error_server").innerHTML = data.message;
+                              }
+                            }
+                      });
+
+                      }
+
+
+                    }
+                  
+                  
+                
+                // Validate step 2
+
+                  if(stepNumber == 1){
+
+                    if(document.getElementById('no').checked === false){
+                      
+                      if(id_serial_no == ""||id_no == ""){
+
+                          setTimeout(function() {
+                              $('#smartwizard').data('smartWizard')._showStep(1); 
+                          }, 50);
+
+                      
+                        if(id_serial_no == ""){
+                            $('#id_serial_no_error').show();
+                          }
+
+                          if(id_no == ""){
+                            $('#id_no_error').show();
+                          }
+
+
+                          if(district_of_birth == ""){
+                            $('#district_of_birth_error').show();
+                          }
+                      }
+
+                      if(id_no !== ""){
+
+                          $.ajax({
+                                url: '/api/validate-id_no',
+                                type: 'POST',
+                                data: {id_no:id_no},
+                                success: function (data) {
+                                  console.log("Response => " + JSON.stringify(data));
+                                  if(!data.success){
+                                    setTimeout(function() {
+                                      $('#smartwizard').data('smartWizard')._showStep(1); 
+                                    }, 50);
+                                    $('#id_no_error_server').show();
+                                    document.getElementById("id_no_error_server").innerHTML = data.message;
+                                  }
+                                }
+                          });
+
+                      }
+
+                    }else{
+
+                      if(district_of_birth == ""){
+
+                            setTimeout(function() {
+                                  $('#smartwizard').data('smartWizard')._showStep(1); 
+                            }, 50);
+
+                            $('#district_of_birth_error').show();
+                      }
+
+                    }
+                  }
+
+
+
+                  // Validate step 3
+
+                  if(stepNumber == 2){
+                      
+                      if(!county||!sub_county||!ward||!village||!residence){
+                        console.log("Lofoofoofoofofo", county,sub_county, ward, village, residence);
+                        setTimeout(function() {
+                            $('#smartwizard').data('smartWizard')._showStep(2); 
+                        }, 50);
+
+                      
+                          if(!county){
+                            $('#county_error').show();
+                          }
+
+                          if(!sub_county){
+                            $('#subcounty_error').show();
+                          }
+
+                          if(!ward){
+                            $('#ward_error').show();
+                          }
+
+                          if(!village){
+                            $('#village_error').show();
+                          }
+
+                          if(!residence){
+                            $('#residence_error').show();
+                          }
+
+                      }
+                  }
+
+
+                  // Validate step 4
+
+                  if(stepNumber == 3){
+                      
+                      if(!preffered_job){
+                        setTimeout(function() {
+                            $('#smartwizard').data('smartWizard')._showStep(3); 
+                        }, 50);
+
+                      
+                          if(!preffered_job){
+                            $('#preffered_job_error').show();
+                          }
+
+                      }
+                  }
+
+
+                  // Validate step 5
+
+                  if(stepNumber == 4){
+                      
+                      if(alternate_payment_person && alternate_payment_person_id_no || alternate_payment_person && alternate_payment_person_phone){
+                        setTimeout(function() {
+                            $('#smartwizard').data('smartWizard')._showStep(4); 
+                        }, 50);
+                      
+                         if(!alternate_payment_person_id_no){
+                            $('#alternate_id_error').show();
+                          }
+
+                          if(!alternate_payment_person_phone){
+                            $('#alternate_phone_error').show();
+                          }
+
+                      }
+                  }
+
+
+
+
+
+          }
+          return true;
+        });
+
+
+    $('.select2').select2({
+      placeholder: 'Select an option'
+    });
+
+    function get_subcounties(){
+
+      var county = document.getElementById("county").value;
+        $('#sub_county').children().remove();
+        $('#sub_county').append( '<option value="">Select Sub County</option>');
+        
+        $.ajax({
+                url: '/api/get-subcounties',
+                type: 'POST',
+                data: {county:county},
+                success: function (data) { 
+                    var length = data.length;
+                    for (i = 0; i < length; i++)
+                    { 
+                        $('#sub_county').append( '<option value="'+data[i].sub_county+'">'+data[i].sub_county+'</option>' );
+                    }
+                }
+          });
+          
+
+    }
+
+    function get_wards(){
+
+        var sub_county = document.getElementById("sub_county").value;
+        $('#ward').children().remove();
+        $('#ward').append( '<option value="">Select Ward</option>');
+        
+        $.ajax({
+                url: '/api/get-wards',
+                type: 'POST',
+                data: {sub_county:sub_county},
+                success: function (data) { 
+                    var length = data.length;
+                    for (i = 0; i < length; i++)
+                    { 
+                        $('#ward').append( '<option value="'+data[i].ward+'">'+data[i].ward+'</option>' );
+                    }
+                }
+          });
+         
+
+    }
+
+    function get_villages(){
+
+      var ward = document.getElementById("ward").value;
+
+      $('#village').children().remove();
+      $('#village').append( '<option value="">Select Village</option>');
+
+      $.ajax({
+              url: '/api/get-villages',
+              type: 'POST',
+              data: {ward:ward},
+              success: function (data) { 
+                  var length = data.length;
+                  for (i = 0; i < length; i++)
+                  { 
+                      $('#village').append( '<option value="'+data[i].village+'">'+data[i].village+'</option>' );
+                  }
+              }
+        });
+
+    }
+
+    function submitForm(){
+
+      var preffered_job = $('#preffered_job').val();
+
+      if(!preffered_job||document.getElementById('termscheckbox').checked === false){
+
+            setTimeout(function() {
+                $('#smartwizard').data('smartWizard')._showStep(3); 
+            }, 50);
+
+      }
+      
+      if(!preffered_job){
+
+            $('#preffered_job_error').show();
+              
+      }else  if(document.getElementById('termscheckbox').checked === false ) {
+         $('#termscheckbox_error').show();
+      }else{
+
+        $('#registerationForm').submit();
+
+      }
+
+
+    }
+
+    function noid(){
+      $('#id_serial_no').attr("disabled", true);
+      $('#id_no').attr("disabled", true);
+    }
+
+    function yesid(){
+      $('#id_serial_no').attr("disabled", false);
+      $('#id_no').attr("disabled", false);
+    }
+
+    function recaptchaCallback() { 
+        $('#submitBtn').removeAttr('disabled');
+    };
+
+    </script>
+
+          <script type='text/javascript'>
+        $(document).ready(function() {
+          $('#smartwizard').smartWizard({
+            selected: 0,
+            theme: 'dots',
+            autoAdjustHeight: true,
+            transitionEffect: 'slide',
+            showStepURLhash: false,
+            enableFinishButton: true
+          });
+
+
+          $("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection) {
+
+            if($('button.sw-btn-next').hasClass('disabled')){
+              $('.sw-btn-group-extra').show();
+            }else{
+              	
+            }
+
+	      });
+
+        });
+
+        
+        
+      </script>
+  </body>
+</html>
